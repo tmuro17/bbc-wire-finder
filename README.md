@@ -1,4 +1,4 @@
-# bbc-wire-wire
+# bbc-wire-finder
 
 ## Project Goals
 
