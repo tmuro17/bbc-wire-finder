@@ -1,0 +1,17 @@
+[package]
+name = "bbc-wire-finder"
+version = "0.1.0"
+edition = "2021"
+authors = ["Tanner Muro <tanner@tmuro17.dev>"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+microbit-v2 = "0.13.0"
+cortex-m = "0.7.3"
+cortex-m-rt = "0.7.0"
+rtt-target = { version = "0.3.1", features = ["cortex-m"] }
+panic-rtt-target = { version = "0.1.2", features = ["cortex-m"] }
+lsm303agr = "0.2.2"
+libm = "0.2.1"
+embedded-hal = "0.2.6"
