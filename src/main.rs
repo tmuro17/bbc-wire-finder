@@ -16,6 +16,9 @@ use rtt_target::{rprintln, rtt_init_print};
 
 type Lights = [[u8; 5]; 5];
 
+const BACKGROUND_NANO_TESLA: f64 = 20_000.0;
+const NANO_TESLA_BUCKET_SIZE: f64 = 150_000.0;
+
 const OFF: Lights = [[0; 5]; 5];
 
 const CENTER: Lights = [
@@ -64,8 +67,8 @@ impl From<Measurement> for SignalLevel {
         let z = f64::from(data.z);
 
         let magnitude: f64 = sqrt(x * x + y * y + z * z);
-        let scaled = (magnitude - 20_000.0) / 150_000.0;
-        let clamped = scaled.clamp(0.0, 5.0);
+        let scaled = (magnitude - BACKGROUND_NANO_TESLA) / NANO_TESLA_BUCKET_SIZE;
+        let clamped = scaled.clamp(0.0, 5.0); // Hardcoded because `mem::variant_count::<SignalLevel>` is unstable.
         let level = round(clamped) as u8;
 
         match level {
@@ -93,7 +96,7 @@ impl From<SignalLevel> for Lights {
 }
 
 fn combine(x: Lights, y: Lights) -> Lights {
-    let mut result = [[0; 5]; 5];
+    let mut result = OFF;
     x.iter()
         .zip(y.iter())
         .enumerate()
